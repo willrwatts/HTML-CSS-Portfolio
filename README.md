@@ -1,5 +1,5 @@
-Easiest way to view is via https://htmlpreview.github.io/ by copying and pasting the link to the ‘index.html’ as seen below
+Below is a way to view the website online
 
-https://github.com/willrwatts/HTML-CSS-Portfolio/blob/main/index.html
+https://htmlpreview.github.io/?https://github.com/willrwatts/HTML-CSS-Portfolio/blob/main/index.html
 
 Created in 2025

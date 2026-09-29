@@ -1,0 +1,559 @@
+/* Removes padding and margin from all elements */
+* {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: black;
+}
+
+
+/* NAV BAR */
+
+/* Full Navigation Bar */
+nav {
+    background-color: black;
+    position: sticky;
+    top: 0;
+    overflow: hidden;
+    height: 5vh;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px 15vw 0px 15vw;
+    z-index: 1000;
+}
+
+/* 
+Line under Navigation Bar
+Helps control the width of the bar using 'width'
+*/
+nav::after{
+    content:'';
+    position: absolute;
+    height: 1px;
+    left: 15%;
+    bottom: 0;
+    width: 70%;
+    background-color: white;
+}
+
+nav a {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 14pt;
+    text-decoration: none;
+    text-transform: uppercase;
+    color: white;
+    position: relative;
+}
+
+/* Lines Under Links */
+nav a::after {
+    content:'';
+    position: absolute;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    width: 0%;
+    background-color: white;
+    transition: width .2s;
+}
+
+/* 
+On hover, create underline
+Excludes the 'Will Watts' title from having an underline 
+*/
+nav a:not(#nav-focus):hover:after {
+    width: 100%;
+}
+
+/* Active class always has underline */
+.active:after {
+    width: 100%;
+}
+
+
+
+/* HOME PAGE */
+
+.hero-section {
+    margin: 3% 5%;
+    position: relative;
+    z-index: 1;
+    width: 90vw;
+    place-content: center;
+    padding: 10px;
+    border: 1px solid;
+    border-color: white;
+}
+
+/* Fading Background */
+/* 
+I don't really know the precise timings of theis, but essentially, each picture is visible for a few seconds and then invisible for a lot more seconds. They are each delayed by a little more so that it creates the illusion of fading into each other.
+*/
+@keyframes slideshow__fade {  
+    0% {
+      opacity: 0;
+      animation-timing-function: ease-in;
+    }
+
+    12.00% {
+     opacity: 1;
+     animation-timing-function: ease-out;
+    }
+
+    20.00% {
+        opacity: 1;
+    }
+
+    28.00% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+/* Images in the slideshow */
+.hero-section img {
+    color: transparent;
+    opacity: 0;
+    z-index: 0;
+
+    /* Loop is 30 seconds long and infinite loops */
+    animation: slideshow__fade 30s linear infinite 0s;
+    backface-visibility: hidden;
+    width: 90vw;
+    height: 80vh;
+    object-fit: cover;
+}
+
+/* Makes sure that all images overlap and don't stack. Excludes first image */
+.hero-section img:not(:first-child) {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+}
+
+/* Animation Delays */
+.hero-section img:nth-child(1) {
+    animation-delay: 0s;
+}
+.hero-section img:nth-child(2) {
+    animation-delay: 6s;
+}
+.hero-section img:nth-child(3) {
+    animation-delay: 12s;
+}
+.hero-section img:nth-child(4) {
+    animation-delay: 18s;
+}
+.hero-section img:nth-child(5) {
+    animation-delay: 24s;
+} 
+
+/* Centers .home-info-container */
+.home-flex {
+    display: flex;
+    justify-content: center;
+}
+
+/* Main container for home information :D */
+.home-info-container {
+    display: grid;
+    grid-template-columns: 1fr .5fr 1fr;
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+    width: 70vw;
+}
+
+.info-section-1 {
+    grid-area: 1 / 1 / 2 / 3;
+}
+
+.info-section-1 h1 {
+    color: white;
+    font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.photo-mod-1 {
+    grid-area: 1 / 3 / 2 / 4;
+}
+
+.photo-mod-1 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.info-section-2 {
+    grid-area: 2 / 2 / 3 / 4;
+}
+
+.info-section-2 h1 {
+    color: white;
+    font-family: 'Hanken Grotesk', sans-serif;
+}
+
+.photo-mod-2 {
+    grid-area: 2 / 1 / 3 / 2;
+}
+
+.photo-mod-2 img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Stacks the Grid */
+@media (max-width: 760px) {
+
+    .home-info-container {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: repeat(4, 1fr);
+        grid-column-gap: 10px;
+        grid-row-gap: 10px;
+    }
+    
+    .info-section-1 {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+
+    .photo-mod-1 {
+        grid-area: 2 / 1 / 3 / 2;
+    }
+
+    .info-section-2 {
+        grid-area: 3 / 1 / 4 / 2;
+    }
+
+    .photo-mod-2 {
+        grid-area: 4 / 1 / 5 / 2;
+    }
+}
+
+
+
+/* GALLERY PAGE */
+
+.gallery-container {
+    padding: 2% 5% 3% 5%;
+}
+
+/* 
+GALLERY DISPLAY 
+The scaling here is very sensitive and still needs some improvements
+*/
+
+
+/* Full Gallery display */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    border: 1px solid;
+    border-color: white;
+    padding: 10px;
+}
+
+/* Project Square */
+.project {
+    position: relative;
+    width: 50%;
+}
+
+/* Stacks the project previews */
+@media (max-width: 760px) {
+
+    .project {
+        width: 100%;
+    }
+
+}
+
+/* Cover Images */
+.gallery img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gallery img:hover {
+    filter: brightness(65%);
+}
+
+.gallery h1, h3 {
+    font-family: 'Hanken Grotesk', sans-serif;
+    color: white;
+    position: absolute;
+    z-index: 100;
+    left: 5%;
+    pointer-events: none;
+    /* pointer-events negates the mouse from hovering over the text rather than the image */
+}
+
+/* h1 is project title */
+.gallery h1 {
+    top: 5%;
+    font-size: calc(2vw + 2vh);
+}
+
+/* h3 is project description */
+.gallery h3 {
+    font-size: calc(1vw + 1vh);
+    font-weight: 300;
+    top: calc(3.5vw + 3.5vh);
+    width: 75%;
+}
+
+/* .ptext is both h1 and h3 together */
+.ptext {
+    display: none;
+}
+
+/* displays .ptext when hovering over project image */
+.gallery a:hover + .ptext {
+    display: block;
+}
+
+
+
+/* PROJECT PAGE */
+
+.project-header {
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    margin: 30px 0px;
+}
+
+.project-header h1, p {
+    color: white;
+    font-family: 'Hanken Grotesk', sans-serif;}
+
+.project-info {
+    width: 60%;
+}
+
+.project-content {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: 1fr;
+    grid-column-gap: 10px;
+    width: 70%;
+    margin-left: 15%;
+}
+
+/* Project Images */
+.project-content img {
+    width: 100%;
+    margin-bottom: 5px;
+    cursor:zoom-in
+}
+
+/* Project Column 1 */
+.project-col1 {
+    grid-area: 1 / 1 / 2 / 2;
+}
+
+/* Project Column 2 */
+.project-col2 {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+/* Stacks the project images */
+@media (max-width: 1080px) {
+    
+    .project-content {
+        display: grid;
+        grid-template-columns: 1fr;
+        grid-template-rows: 2fr;
+        grid-column-gap: 10px;
+        width: 70%;
+        margin-left: 15%;
+    }
+    
+    /* Project Column 1 */
+    .project-col1 {
+        grid-area: 1 / 1 / 2 / 2;
+    }
+    
+    /* Project Column 2 */
+    .project-col2 {
+        grid-area: 2 / 1 / 3 / 2;
+    }
+}
+
+#lightbox {
+    position: fixed;
+    z-index: 1001;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: none;
+    cursor:pointer;
+}
+
+#lightbox.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#lightbox.active img {
+    max-width: 90%;
+    max-height: 80%;
+    padding: 4px;
+    background-color: black;
+    border: 2px solid white;
+    cursor: default;
+}
+
+
+
+/*  ABOUT PAGE */
+
+.about-hero-section {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 3% 5% 4% 5%;
+}
+
+/* Hero Image Image */
+.about-hero-section img {
+    height: 80vh;
+    width: 90vw;
+    object-fit: cover;
+    padding: 10px;
+    border: 1px solid;
+    border-color: white;
+}
+
+/* Originally, there was a title, but I enjoy it more without. This is here incase I want it back */
+.about-hero-section h1 {
+    font-family: 'Hanken Grotesk', sans-serif;
+    font-size: 48pt;
+    text-transform: lowercase;
+    color: white;
+    position: absolute;
+    mix-blend-mode: difference;
+}
+
+/* About writing */
+.about-section {
+    margin: 2% 15% 0px 15%;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1.5fr 1fr;
+    grid-template-rows: fit-content(40%);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.about-section h1, h6, p {
+    font-family: 'Hanken Grotesk', sans-serif;
+    color: white;
+}
+
+/* About Words */
+.about-text-mod {
+    display: flex;
+    align-items: center;
+    grid-area: 1 / 1 / 2 / 2;
+    border: 1px solid;
+    border-color: white;
+    padding: 10px;
+    height: fit-content;
+}
+
+/* About Image */
+.about-image-mod {
+    grid-area: 1 / 2 / 2 / 3;
+}
+
+.about-image-mod img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Social Media Icons */
+.socials {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    width: 20%;
+}
+
+.socials i {
+    color: white;
+    font-size: 20pt;
+    margin: 0px 5px;
+}
+
+/* Social Hover Effect pt1 */
+.socials:hover i {
+    color: gray;
+}
+
+/* Social Hover Effect pt2 */
+.socials i:hover {
+    color: white;
+}
+
+/* Stacks the About Description */
+@media (max-width: 760px) {
+    /* About writing */
+.about-section {
+    margin: 2% 15% 0px 15%;
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;
+}
+
+.about-section h1, h6, p {
+    font-family: 'Hanken Grotesk', sans-serif;
+    color: white;
+}
+
+/* About Words */
+.about-text-mod {
+    display: flex;
+    align-items: center;
+    grid-area: 2 / 1 / 3 / 2;
+    border: 1px solid;
+    border-color: white;
+    padding: 10px;
+    height: fit-content;
+}
+
+/* About Image */
+.about-image-mod {
+    grid-area: 1 / 1 / 2 / 2;
+}
+}
+
+
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    width: 100%;
+    margin: 5vh 0px;
+    place-content: center;
+}
+
+footer a {
+    text-decoration: none;
+    color: white;
+}
